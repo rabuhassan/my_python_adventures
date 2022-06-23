@@ -123,6 +123,17 @@ sns.scatterplot(x='IMDb', y='Rotten Tomatoes', data=movies_list)
 
 # * There is a week positive correlation. 
 
+# ### Practical Activity 4.1.12
+# # Outliers Analysis
+# ----
+
+# In[41]:
+
+
+# Create a boxplot based on species and body_mass_g.
+sns.boxplot(data=movies_list, x='Age', y='IMDb')
+
+
 # In[ ]:
 
 
