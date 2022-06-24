@@ -7,7 +7,7 @@
 
 # ### 1. Prepara Workstation
 
-# In[24]:
+# In[1]:
 
 
 # Import packages
@@ -16,7 +16,7 @@ import seaborn as sns
 import pandas as pd
 
 
-# In[25]:
+# In[2]:
 
 
 # Load databases and create DataFrames
@@ -38,19 +38,19 @@ print(f"ott has the following columns: {ott.columns}")
 print("-------------")
 
 
-# In[26]:
+# In[3]:
 
 
 movies.head()
 
 
-# In[27]:
+# In[4]:
 
 
 ott.head()
 
 
-# In[28]:
+# In[5]:
 
 
 # Merge the two DataFrames
@@ -59,7 +59,7 @@ movies_list = pd.merge(movies, ott, how='left', on='ID')
 movies_list
 
 
-# In[29]:
+# In[6]:
 
 
 # View the merged DataFrame. 
@@ -71,7 +71,7 @@ print(f"movies_list has the following columns: {movies_list.columns}")
 print("-------------")
 
 
-# In[30]:
+# In[7]:
 
 
 movies_list.head()
@@ -83,7 +83,7 @@ movies_list.head()
 # 1. What age group had the most-streamed movies?
 # 2. Can you identify any gaps that Netflix need to address?
 
-# In[35]:
+# In[8]:
 
 
 # Create a countplot.
@@ -99,7 +99,7 @@ sns.countplot(x='Age', hue='Netflix', data=movies_list)
 # 1. What do you understand from the histogram?
 # 2. What are the outliers in the data? 
 
-# In[37]:
+# In[9]:
 
 
 # Create a histogram.
@@ -114,7 +114,7 @@ sns.histplot(data = movies_list, x='IMDb', binwidth=1)
 # * What can you infer about the correlation? 
 # * If there is a correlation, is the relationship between the ratings strong or weak and positive or negative?
 
-# In[39]:
+# In[10]:
 
 
 # Create the scatterplot.
@@ -127,12 +127,57 @@ sns.scatterplot(x='IMDb', y='Rotten Tomatoes', data=movies_list)
 # # Outliers Analysis
 # ----
 
-# In[41]:
+# In[11]:
 
 
 # Create a boxplot based on species and body_mass_g.
 sns.boxplot(data=movies_list, x='Age', y='IMDb')
 
+
+# ### Practical Activity 4.1.15
+# # Creating a Line and Subplots
+# -----
+
+# ### 1. Lineplot
+# 
+# Cmparing the movies' release year and their IMDb ratings in order to answer the following questions:
+# * What can you infer about the users’ ratings for movies released between 1920 and 1940?
+# * What can you infer about the users’ ratings for movies released between 1960 and 1980?
+
+# In[12]:
+
+
+# Create a simple plot.
+sns.lineplot(x='Year', y='IMDb', data=movies_list)
+
+
+# In[13]:
+
+
+# Create a simple plot. Remove the bands. 
+sns.lineplot(x='Year', y='IMDb', data=movies_list, ci=None)
+
+
+# * Data between 1920 and 1940 is seemingly unreliable. 
+# * From 1960 until 2020, there has been an improvement in the data and the errors. 
+
+# ### 2. Enhance Line Plot
+# * Compare age, rating, and year of release of the movies in order to answer the following questions:
+# * How would you further enhance the lineplot?
+# * What can you infer about the movies with a 16+ and 18+ age limit?
+# * In which year did the film industry start marking suitable movies for individuals 16+? 
+# 
+
+# In[17]:
+
+
+# Create lineplots with specification.
+sns.lineplot(x = 'Year', y = 'IMDb',
+             data = movies_list[movies_list['Age'].isin(['16+', '18+'])],
+             hue ='Age', ci=None)
+
+
+# * Movie industry started making movies for 16+ in and around 1970. 
 
 # In[ ]:
 
