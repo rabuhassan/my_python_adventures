@@ -168,7 +168,7 @@ sns.lineplot(x='Year', y='IMDb', data=movies_list, ci=None)
 # * In which year did the film industry start marking suitable movies for individuals 16+? 
 # 
 
-# In[17]:
+# In[14]:
 
 
 # Create lineplots with specification.
@@ -178,6 +178,40 @@ sns.lineplot(x = 'Year', y = 'IMDb',
 
 
 # * Movie industry started making movies for 16+ in and around 1970. 
+
+# ### Practical Activity 4.2.5
+# # Customising Plots
+# -----
+
+# In[15]:
+
+
+movies_2010 = movies_list[movies_list['Year']>=2010]
+
+ax = sns.countplot(x='Year', data=movies_2010)
+
+ax.set(ylabel='Percent')
+
+total = len(movies_2010['Year'])
+
+for p in ax.patches:
+    percentage = '{:.1f}%'.format(100 * p.get_height()/total)
+    x = p.get_x()
+    y = p.get_y() + p.get_height()
+    ax.annotate(percentage, (x, y))
+
+plt.xticks(rotation=90)
+plt.show()
+
+
+# In[16]:
+
+
+ax = sns.displot(data=movies_list, x='IMDb', bins=10,kind='hist', 
+                 palette='GnBu', aspect=1.4, kde=True)
+
+plt.show()
+
 
 # In[ ]:
 
