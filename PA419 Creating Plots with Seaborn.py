@@ -213,6 +213,41 @@ ax = sns.displot(data=movies_list, x='IMDb', bins=10,kind='hist',
 plt.show()
 
 
+# ### Practical Activity 4.2.7
+# # Highlight and Annotate Plots
+# -----
+
+# In[18]:
+
+
+sns.scatterplot(data=movies_list, x='IMDb', y='Rotten Tomatoes', hue='Netflix')
+
+plt.show()
+
+
+# In[19]:
+
+
+sns.boxplot(data=movies_list, x='Age', y='IMDb', linewidth=2, 
+            notch=True, hue='Netflix', palette='Set3')
+
+plt.show()
+
+
+# In[21]:
+
+
+sns.lineplot(x = 'Year', y = 'IMDb', data=movies_list, linewidth=0)
+
+sns.lineplot(x = 'Year', y = 'IMDb',
+             data=movies_list[movies_list['Age'].isin(['16+', '18+'])], 
+             hue ='Age')
+
+sns.lineplot(x = 'Year', y = 'IMDb', 
+             data=movies_list[movies_list['Age'].isin(['16+', '18+'])], 
+             hue ='Age', style = 'Age', markers=True, ci=0)
+
+
 # In[ ]:
 
 
