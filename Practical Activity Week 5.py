@@ -95,14 +95,102 @@ covid_df = pd.DataFrame(output)
 covid_df
 
 
-# In[ ]:
+# # 5.1.7 Practical activity: Convert, Clean, and Analyse Data
+
+# In[23]:
 
 
+# Save the DataFrame as a CSV file without index.
+covid_df.to_csv('cases.csv', index=False)
 
 
-
-# In[ ]:
-
+# In[24]:
 
 
+# Create a JSON file.
+import json
+
+# Create a JSON file.
+output_json = json.dumps(output)
+
+# View the output.
+output_json
+
+
+# In[25]:
+
+
+# Save the JSON file to .json.
+with open('cases_json.json', 'w') as f:
+    json.dump(output, f)
+
+
+# In[26]:
+
+
+# Read the JSON using Pandas, output to .csv.
+pd.read_json(output_json).to_csv('cases_csv.csv', index=False)
+
+
+# In[37]:
+
+
+# Import and read the CSV file.
+data_csv = pd.read_csv('cases_csv.csv')
+
+# View the data.
+print(data_csv.head())
+
+# Import and read the JSON file.
+data_json = pd.read_json('cases_json.json')
+
+# View the DataFrame. 
+data_json.head()
+
+
+# In[28]:
+
+
+# View the CSV and JSON DataFrames.
+print(data_csv.dtypes)
+print(data_csv.columns)
+
+print(data_json.dtypes)
+print(data_json.columns)
+
+
+# In[32]:
+
+
+# Create a subset.
+data_report = data_csv[['Country/Others', 'Total Cases', 'Total Deaths',
+                        'Total Recovered', 'Active Cases', 'Serious/Critical']]
+
+# View the column names.
+print(data_report.columns)
+data_report
+
+
+# In[33]:
+
+
+# Determine missing values.
+data_report.isnull().sum()
+
+
+# In[34]:
+
+
+# Save the DataFrame as a CSV file without index.
+data_report.to_csv('cases_report.csv', index=False)
+
+
+# In[35]:
+
+
+# View the saved CSV.
+cases_report = pd.read_csv('cases_report.csv')
+
+# View the DataFrame.
+cases_report.head()
 
