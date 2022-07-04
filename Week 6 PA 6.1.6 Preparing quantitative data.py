@@ -371,6 +371,303 @@ ax = sns.boxplot(x=df_5_non_outlier['price'],whis=1.5)
 
 # ----
 
+# # 6.1.8 Practical activity: Time-series forecasting
+
+# The objective of this activity is to forecast the prices of houses by:
+# 
+# 1. plotting the sub-data sets
+# 2. resampling to remove noise
+# 3. using a time-series moving average.
+
+# ### 1-bedroom
+
+# In[37]:
+
+
+# Create a plot for 1 bedroom.
+# Calculate max and min.
+df_1_non_outlier['price'].min()
+df_1_non_outlier['price'].max()
+
+
+# Plot the time-series data.
+df_1_non_outlier.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title('Time series plot for house with 1 bedroom')
+plt.show(block=False)
+
+
+# In[38]:
+
+
+# Resample the data set with 1 bedroom.
+df_1_res = df_1_non_outlier.resample('M').mean()
+df_1_res.head()
+
+
+# Drop the missing values: 
+df_1_res.dropna(inplace= True)
+df_1_res.isna().sum()
+
+
+# Plot the time-series data:
+df_1_res.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title("Time series plot after resampling")
+plt.show(block=False)
+
+
+# In[39]:
+
+
+# Discussed in tutorial video.
+# Function to calculate and plot the simple moving average: 
+def plot_moving_average(series, window, plot_intervals=False, scale=1.96):
+
+    rolling_mean = series.rolling(window=window).mean()
+    
+    plt.figure(figsize=(12,4))
+    plt.title("Moving average\n window size = {}".format(window))
+    plt.plot(rolling_mean, 'g', label='Simple moving average trend')
+    
+    # Plot confidence intervals for smoothed values.
+    if plot_intervals:
+        mae = mean_absolute_error(series[window:], rolling_mean[window:])
+        deviation = np.std(series[window:] - rolling_mean[window:])
+        lower_bound = rolling_mean - (mae + scale * deviation)
+        upper_bound = rolling_mean + (mae + scale * deviation)
+        plt.plot(upper_bound, 'r--', label='Upper bound / Lower bound')
+        plt.plot(lower_bound, 'r--')
+            
+    plt.plot(series[window:], label='Actual values')
+    plt.legend(loc='best')
+    plt.grid(True)
+
+
+# In[40]:
+
+
+# 1 bedroom:
+# 5 days:
+plot_moving_average(df_1_res.price, 5, plot_intervals=True)
+
+# 30-days smoothing:
+plot_moving_average(df_1_res.price, 30, plot_intervals=True)
+
+# 90-days smoothing:
+plot_moving_average(df_1_res.price, 90, plot_intervals=True)
+
+
+# ### 2-bedrooms
+
+# In[45]:
+
+
+# Create a plot for 2 bedroom.
+# Calculate max and min.
+df_2_non_outlier['price'].min()
+df_2_non_outlier['price'].max()
+
+
+# Plot the time-series data.
+df_2_non_outlier.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title('Time series plot for house with 2 bedroom')
+plt.show(block=False)
+
+
+# In[42]:
+
+
+# Resample the data set with 1 bedroom.
+df_2_res = df_2_non_outlier.resample('M').mean()
+df_2_res.head()
+
+
+# Drop the missing values: 
+df_2_res.dropna(inplace= True)
+df_2_res.isna().sum()
+
+
+# Plot the time-series data:
+df_2_res.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title("Time series plot after resampling")
+plt.show(block=False)
+
+
+# In[43]:
+
+
+# 2 bedroom:
+# 5 days:
+plot_moving_average(df_2_res.price, 5, plot_intervals=True)
+
+# 30-days smoothing:
+plot_moving_average(df_2_res.price, 30, plot_intervals=True)
+
+# 90-days smoothing:
+plot_moving_average(df_2_res.price, 90, plot_intervals=True)
+
+
+# ### 3-bedrooms
+
+# In[46]:
+
+
+# Create a plot for 3 bedroom.
+# Calculate max and min.
+df_3_non_outlier['price'].min()
+df_3_non_outlier['price'].max()
+
+
+# Plot the time-series data.
+df_3_non_outlier.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title('Time series plot for house with 3 bedroom')
+plt.show(block=False)
+
+
+# In[49]:
+
+
+# Resample the data set with 3 bedroom.
+df_3_res = df_3_non_outlier.resample('M').mean()
+df_3_res.head()
+
+
+# Drop the missing values: 
+df_3_res.dropna(inplace= True)
+df_3_res.isna().sum()
+
+
+# Plot the time-series data:
+df_3_res.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title("Time series plot after resampling")
+plt.show(block=False)
+
+
+# In[52]:
+
+
+# 3 bedroom:
+# 5 days:
+plot_moving_average(df_3_res.price, 5, plot_intervals=True)
+
+# 30-days smoothing:
+plot_moving_average(df_3_res.price, 30, plot_intervals=True)
+
+# 90-days smoothing:
+plot_moving_average(df_3_res.price, 90, plot_intervals=True)
+
+
+# ### 4-bedrooms
+
+# In[47]:
+
+
+# Create a plot for 4 bedroom.
+# Calculate max and min.
+df_4_non_outlier['price'].min()
+df_4_non_outlier['price'].max()
+
+
+# Plot the time-series data.
+df_2_non_outlier.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title('Time series plot for house with 4 bedroom')
+plt.show(block=False)
+
+
+# In[50]:
+
+
+# Resample the data set with 4 bedroom.
+df_4_res = df_4_non_outlier.resample('M').mean()
+df_4_res.head()
+
+
+# Drop the missing values: 
+df_4_res.dropna(inplace= True)
+df_4_res.isna().sum()
+
+
+# Plot the time-series data:
+df_4_res.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title("Time series plot after resampling")
+plt.show(block=False)
+
+
+# In[53]:
+
+
+# 4 bedroom:
+# 4 days:
+plot_moving_average(df_4_res.price, 5, plot_intervals=True)
+
+# 30-days smoothing:
+plot_moving_average(df_4_res.price, 30, plot_intervals=True)
+
+# 90-days smoothing:
+plot_moving_average(df_4_res.price, 90, plot_intervals=True)
+
+
+# ### 5-bedrooms
+
+# In[48]:
+
+
+# Create a plot for 5 bedroom.
+# Calculate max and min.
+df_5_non_outlier['price'].min()
+df_5_non_outlier['price'].max()
+
+
+# Plot the time-series data.
+df_5_non_outlier.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title('Time series plot for house with 5 bedroom')
+plt.show(block=False)
+
+
+# In[51]:
+
+
+# Resample the data set with 5 bedroom.
+df_5_res = df_5_non_outlier.resample('M').mean()
+df_5_res.head()
+
+
+# Drop the missing values: 
+df_5_res.dropna(inplace= True)
+df_5_res.isna().sum()
+
+
+# Plot the time-series data:
+df_5_res.plot(figsize=(12, 4))
+plt.legend(loc='best')
+plt.title("Time series plot after resampling")
+plt.show(block=False)
+
+
+# In[54]:
+
+
+# 5 bedroom:
+# 5 days:
+plot_moving_average(df_5_res.price, 5, plot_intervals=True)
+
+# 30-days smoothing:
+plot_moving_average(df_5_res.price, 30, plot_intervals=True)
+
+# 90-days smoothing:
+plot_moving_average(df_5_res.price, 90, plot_intervals=True)
+
+
+# ---
+
 # In[ ]:
 
 
